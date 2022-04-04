@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "164136024421",
+    "project_id": "quizhouse-c039f",
+    "storage_bucket": "quizhouse-c039f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:164136024421:android:1c14cf9c8ed7c0e9e6898c",
+        "android_client_info": {
+          "package_name": "com.example.quizhouse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "164136024421-a78a1dnnql65jml2hilhl70bdmtpca6v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd88X_QC_x9Y8kTTdJzukv5m1Up2qc6fk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "164136024421-a78a1dnnql65jml2hilhl70bdmtpca6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
