@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quizhouse/components/primaryButton.dart';
 import 'package:quizhouse/services/auth.dart';
 import 'package:quizhouse/services/remote_db.dart';
 import 'package:quizhouse/utils/constants.dart';
+import 'package:quizhouse/views/altHome.dart';
 import 'package:quizhouse/views/homepage.dart';
 import 'package:quizhouse/views/signin.dart';
 import '../widgets/applogo.dart';
@@ -57,6 +61,7 @@ class _SignUpPageState extends State<SignUpPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: AppLogo(),
+        centerTitle: Platform.isAndroid? true : false,
         systemOverlayStyle: SystemUiOverlayStyle.light,
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -116,24 +121,34 @@ class _SignUpPageState extends State<SignUpPage> {
                               height: 6,
                             ),
                             //Button SignUp
-                            GestureDetector(
-                              onTap: () {
+                            PrimaryButton(
+                              title: 'Sign Up',
+                              buttonWidth:
+                                  MediaQuery.of(context).size.width / 2,
+                              backgroundColor: Colors.lightGreen,
+                              textColor: Colors.white,
+                              onPressed: () {
                                 getInfoAndSignUp();
                               },
-                              child: Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 24, vertical: 20),
-                                width: MediaQuery.of(context).size.width / 2,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: Colors.lightGreen),
-                                child: Text(
-                                  'Sign Up',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ),
                             ),
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     getInfoAndSignUp();
+                            //   },
+                            //   child: Container(
+                            //     alignment: Alignment.center,
+                            //     padding: EdgeInsets.symmetric(
+                            //         horizontal: 24, vertical: 20),
+                            //     width: MediaQuery.of(context).size.width / 2,
+                            //     decoration: BoxDecoration(
+                            //         borderRadius: BorderRadius.circular(16),
+                            //         color: Colors.lightGreen),
+                            //     child: Text(
+                            //       'Sign Up',
+                            //       style: TextStyle(color: Colors.white),
+                            //     ),
+                            //   ),
+                            // ),
                             SizedBox(
                               height: 20,
                             ),

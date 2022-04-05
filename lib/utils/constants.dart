@@ -16,9 +16,9 @@ class HelperConstants {
         HelperConstants.sharedPreferenceUserLoggedInKey, isUserLoggedIn);
   }
 
-  static Future<Object?> getUerLoggedInSharedPreference() async {
+  static Future<bool?> getUerLoggedInSharedPreference() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences
-        .get(HelperConstants.sharedPreferenceUserLoggedInKey);
+    return  sharedPreferences
+        .getBool(HelperConstants.sharedPreferenceUserLoggedInKey);
   }
 }

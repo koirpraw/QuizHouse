@@ -23,8 +23,8 @@ class _SignInPageState extends State<SignInPage> {
   DatabaseService databaseService = DatabaseService();
   final _formKey = GlobalKey<FormState>();
 
-  String email = '', password = '',name='';
-  bool _isLoading = true;
+  bool _isLoading = false;
+  String email = '', password = '', name = '';
 
   late final emailTextController = TextEditingController();
   late final passwordTextController = TextEditingController();
@@ -36,19 +36,16 @@ class _SignInPageState extends State<SignInPage> {
       });
 
       await authService.signInEmailAndPass(email, password).then((value) {
-        if (value != null){
+        if (value != null) {
           setState(() {
-            _isLoading =false;
+            _isLoading = false;
           });
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => MyHomePage()));
         }
-      } );
+      });
 
-
-        // HelperConstants.saveUserLoggedInSharedPreference(true);
-
-
+      HelperConstants.saveUserLoggedInSharedPreference(true);
 
     }
   }
@@ -56,9 +53,7 @@ class _SignInPageState extends State<SignInPage> {
   signUserIn() async {
     await authService.signInEmailAndPass(email, password);
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MyHomePage()));
+        context, MaterialPageRoute(builder: (context) => MyHomePage()));
   }
 
   @override
@@ -79,80 +74,106 @@ class _SignInPageState extends State<SignInPage> {
             children: [
               Spacer(),
               Container(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(hintText: 'Enter Email'),
-                      keyboardType: TextInputType.emailAddress,
-                      controller: emailTextController,
-
-                      onChanged: (val) => email = val,
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: InputDecoration(hintText: 'Enter Password'),
-                      controller: passwordTextController,
-                      validator: (val) => val!.length < 6
-                          ? "Password must be 6+ characters"
-                          : null,
-                      onChanged: (val) => password = val,
-                    ),
-                    SizedBox(
-                      height: 6,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        signUserIn();
-                        // signUserIn();
-
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 24, vertical: 20),
-                        width: MediaQuery.of(context).size.width / 2,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
-                            color: Colors.lightGreen),
-                        child: Text(
-                          'Sign In',
-                          style: TextStyle(color: Colors.white),
+                child: _isLoading
+                    ? Container(
+                        child: CircularProgressIndicator(
+                          color: Colors.blue,
                         ),
+                      )
+                    : Form(
+                  key: _formKey,
+                      child: Container(
+                        child: Column(
+                            children: [
+                              TextFormField(
+                                decoration:
+                                    InputDecoration(hintText: 'Enter Email'),
+                                keyboardType: TextInputType.emailAddress,
+                                controller: emailTextController,
+                                validator: (val) => val!.isEmpty?"Enter valid email":null,
+                                onChanged: (val) => email = val,
+                              ),
+                              SizedBox(
+                                height: 6,
+                              ),
+                              TextFormField(
+                                obscureText: true,
+                                decoration:
+                                    InputDecoration(hintText: 'Enter Password'),
+                                controller: passwordTextController,
+                                validator: (val) => val!.length < 6
+                                    ? "Password must be 6+ characters"
+                                    : null,
+                                onChanged: (val) => password = val,
+                              ),
+                              SizedBox(
+                                height: 6,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  userSignIn();
+                                  // signUserIn();
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 24, vertical: 20),
+                                  width: MediaQuery.of(context).size.width / 2,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(16),
+                                      color: Colors.lightGreen),
+                                  child: Text(
+                                    'Sign In',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Not Signed up yet?'),
+                                  SizedBox(
+                                    width: 6,
+                                  ),
+                                  GestureDetector(
+                                      onTap: () {
+                                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    SignUpPage()));
+                                      },
+                                      child: Text(
+                                        'SIGN UP',
+                                        style: kLinkText,
+                                      )),
+                                ],
+                              )
+                            ],
+                          ),
                       ),
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Not Signed up yet?'),
-                        SizedBox(
-                          width: 6,
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SignUpPage()));
-                            },
-                            child: Text(
-                              'SIGN UP',
-                              style: kLinkText,
-                            )),
-                      ],
-                    )
-                  ],
-                ),
               )
             ],
           ),
         ),
       ),
     );
+  }
+}
+
+String? validateEmail(String? value) {
+  String pattern =
+      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+      r"{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]"
+      r"{0,253}[a-zA-Z0-9])?)*$";
+  RegExp regex = RegExp(pattern);
+  if (value == null || value.isEmpty || !regex.hasMatch(value)) {
+    return 'Enter a valid email address';
+  } else {
+    return null;
   }
 }

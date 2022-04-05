@@ -29,10 +29,13 @@ class _MyAppState extends State<MyApp> {
 
   checkUserLoggedInStatus() async {
     _isLoggedIn =
-        await HelperConstants.getUerLoggedInSharedPreference() as bool;
+        (await HelperConstants.getUerLoggedInSharedPreference().then((value) {
+      setState(() {
+        _isLoggedIn = value!;
+      });
+      return null;
+    }))!;
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +45,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(visualDensity: VisualDensity.adaptivePlatformDensity
           // primarySwatch: Colors.lightGreen,
           ),
-      home: _isLoggedIn ? SignInPage() : SignUpPage(),
+      home: _isLoggedIn ? MyHomePage() : SignInPage(),
     );
   }
 }
