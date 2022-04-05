@@ -105,7 +105,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        userSignIn();
+                        signUserIn();
                         // signUserIn();
 
                       },
