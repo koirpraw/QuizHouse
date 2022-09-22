@@ -14,10 +14,11 @@ class _CreateQuizState extends State<CreateQuiz> {
   DatabaseService databaseService = new DatabaseService();
   final _formKey = GlobalKey<FormState>();
 
-  late String quizImgUrl, quizTitle, quizDesc;
+  late String  quizTitle, quizDesc;
 
   bool isLoading = false;
   late String quizId;
+  late String quizImgUrl;
 
   createQuiz() {
     // quizId = randomAlphaNumeric(16);
@@ -70,7 +71,8 @@ class _CreateQuizState extends State<CreateQuiz> {
                 decoration:
                     InputDecoration(hintText: "Quiz Image Url (Optional)"),
                 onChanged: (val) {
-                  quizImgUrl = val;
+                   quizImgUrl = val;
+                  // quizImgUrl = val;
                 },
               ),
               SizedBox(

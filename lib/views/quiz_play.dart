@@ -48,7 +48,7 @@ class _QuizPlayPageState extends State<QuizPlayPage> {
 
     if (infoStream == null) {
       infoStream = Stream<List<int>>.periodic(Duration(milliseconds: 100), (x) {
-        print("this is x $x");
+        // print("this is x $x");
         return [_correct, _incorrect];
       });
     }

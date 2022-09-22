@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
-  PrimaryButton({Key? key, required this.title,required this.buttonWidth,required this.backgroundColor,required this.onPressed,required this.textColor}) : super(key: key) ;
+  PrimaryButton({Key? key, required this.title,required this.buttonWidth,required this.backgroundColor,required this.onPressed,required this.textColor, buttonHight}) : super(key: key) ;
 
  late String title;
  late Color backgroundColor;
  late double buttonWidth;
+  late double buttonHight;
  final GestureTapCallback onPressed;
  late Color textColor;
 
@@ -15,7 +16,7 @@ class PrimaryButton extends StatelessWidget {
     return RawMaterialButton(
       onPressed: onPressed,
       child: Container(
-        height: 60,
+        height: 40,
         width: buttonWidth,
         child: Center(child: Text(title,style: TextStyle(color: textColor,fontSize: 20))),
         decoration: BoxDecoration(

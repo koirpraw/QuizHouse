@@ -36,7 +36,7 @@ class _SignInPageState extends State<SignInPage> {
       });
 
       await authService.signInEmailAndPass(email, password).then((value) {
-        if (value != null) {
+        if (value != null && value.uid != null) {
           setState(() {
             _isLoading = false;
           });

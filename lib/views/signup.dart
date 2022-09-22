@@ -123,6 +123,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             //Button SignUp
                             PrimaryButton(
                               title: 'Sign Up',
+
+
                               buttonWidth:
                                   MediaQuery.of(context).size.width / 2,
                               backgroundColor: Colors.lightGreen,
